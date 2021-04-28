@@ -7,7 +7,7 @@ const Alert = ({ alert }) => {
     return (
         // if alert is not null(true), show the div
         alert !== null && (
-            <div className={`alert alert-${alert.type}`}>
+            <div className={`mt-4 alert alert-${alert.type}`} >
                 <i className="fas fa-info-circle"> {alert.msg}</i>
             </div>
         )
@@ -16,6 +16,6 @@ const Alert = ({ alert }) => {
 
 // proTypes
 Alert.propTypes = {
-    alert: PropTypes.func.isRequired,
+    alert: PropTypes.func,
 }
 export default Alert

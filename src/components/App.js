@@ -63,9 +63,18 @@ class App extends Component {
     })
   }
 
+  // showAlert function
+  showAlert = (msg, type) => {
+    // set the alert in state
+    this.setState({ alert: { msg, type } }); // same as this.setState({ alert: { msg: msg, type: type } });
+
+    // clear alert after 4 secs by setting alert state to null
+    setTimeout(() => this.setState({ alert: null }), 4000);
+  }
+
   render() {
     // destructuring from state
-    const { formDisplay, myAppointments } = this.state;
+    const { formDisplay, myAppointments, alert } = this.state;
 
     return (
       <main className="page bg-white" id="petratings">
@@ -78,9 +87,14 @@ class App extends Component {
                   formDisplay={formDisplay}
                   toggleForm={this.toggleForm}
                   addAppointment={this.addAppointment}
+                  showAlert={this.showAlert}
                 />
                 <SearchAppointments />
-                <ListAppointments appointments={myAppointments} deleteAppointment={this.deleteAppointment} />
+                <ListAppointments
+                  appointments={myAppointments}
+                  deleteAppointment={this.deleteAppointment}
+                  showAlert={this.showAlert}
+                />
               </div>
             </div>
           </div>

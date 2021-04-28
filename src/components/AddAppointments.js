@@ -39,7 +39,9 @@ class AddAppointments extends Component {
         if (this.state.petName === '' || this.state.ownerName === '' || this.state.aptDate === ''
             || this.state.aptTime === '' || this.state.aptNotes === '') {
 
-            console.log("cannot submit an empty form!");
+            // show error message
+            this.props.showAlert("Cannot submit an empty form!", "danger");
+            // console.log("cannot submit an empty form!");
 
         } else {
             let tempApt = {
@@ -60,6 +62,10 @@ class AddAppointments extends Component {
                 aptTime: '',
                 aptNotes: '',
             })
+
+            // show success message
+            this.props.showAlert("Appointment added.", "success");
+            console.log("cannot submit an empty form!");
 
             // hide the form by calling the toggleForm method
             this.props.toggleForm();
