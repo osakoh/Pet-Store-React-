@@ -17,6 +17,7 @@ class App extends Component {
     alert: null,
     orderBy: 'petName',
     orderDir: 'asc',
+    queryText: '',
   }
 
   // deleteAppointment function
@@ -83,6 +84,13 @@ class App extends Component {
     })
   }
 
+
+  // searchApt function
+  searchApts = query => {
+    this.setState({ queryText: query })
+  }
+
+
   render() {
     let order;
     let filteredApts = this.state.myAppointments;
@@ -92,12 +100,19 @@ class App extends Component {
       order = -1; // desc order
     }
 
-    filteredApts.sort((a, b) => {
+    // function to filter appointment list
+    filteredApts = filteredApts.sort((a, b) => {
       if (a[this.state.orderBy].toLowerCase() < b[this.state.orderBy].toLowerCase()) {
         return -1 * order;
       } else {
         return 1 * order;
       }
+    }).filter(eachItem => {
+      return (
+        eachItem['petName'].toLowerCase().includes(this.state.queryText.toLowerCase()) ||
+        eachItem['ownerName'].toLowerCase().includes(this.state.queryText.toLowerCase()) ||
+        eachItem['aptNotes'].toLowerCase().includes(this.state.queryText.toLowerCase())
+      );
     })
 
     // destructuring from state
@@ -117,9 +132,12 @@ class App extends Component {
                   showAlert={this.showAlert}  // receiving props(function) from AddAppointments
                 />
                 <SearchAppointments
+                  // left: variable/func from subcomponent/component
+                  // right: local variable/func in this script
                   orderBy={this.state.orderBy}  // passing orderBy variable into SearchAppointments
                   orderDir={this.state.orderDir}  // passing orderDir variable into SearchAppointments
                   changeOrder={this.changeOrder}  // receiving props from SearchAppoints
+                  searchApts={this.searchApts}  // receiving props from SearchAppoints
                 />
                 <ListAppointments
                   appointments={filteredApts} // passing appointments array into ListAppointments

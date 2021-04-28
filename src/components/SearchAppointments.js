@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 
 class SearchAppointments extends Component {
-
     static propTypes = {
         orderBy: PropTypes.string.isRequired,
         orderDir: PropTypes.string.isRequired,
@@ -23,6 +22,7 @@ class SearchAppointments extends Component {
                             type="text"
                             className="form-control"
                             aria-label="Search Appointments"
+                            onChange={e => this.props.searchApts(e.target.value)}
                         />
                         <div className="input-group-append">
                             <button
