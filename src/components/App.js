@@ -76,7 +76,6 @@ class App extends Component {
       aptId: id
     });
     tempApts[aptIndex][name] = value;
-    // set the state
     this.setState({
       myAppointments: tempApts,
     });
