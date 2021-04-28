@@ -90,4 +90,5 @@ export default App;
  * // binding the this keyword
  * this.deleteAppointment = this.deleteAppointment.bind(this);
  * this.toggleForm = this.toggleForm.bind(this);
+ * PropType import: impt
 */

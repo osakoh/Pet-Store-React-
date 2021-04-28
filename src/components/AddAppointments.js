@@ -1,16 +1,48 @@
 import React, { Component } from 'react';
 import { FaPlusSquare } from 'react-icons/fa';
+import PropTypes from 'prop-types'  // PropType import: impt
+
 
 class AddAppointments extends Component {
+
+    state = { // each variable corresponds to the name of each input
+        petName: '',
+        ownerName: '',
+        aptDate: '',
+        aptTime: '',
+        aptNotes: '',
+    }
+
+    // proptypes
+    static propTypes = {
+        formDisplay: PropTypes.bool.isRequired,
+        toggleForm: PropTypes.func.isRequired,
+    }
+
+    // event handler     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+    handleChange = e => {
+        const target = e.target;
+        const value = target.value;
+        const name = target.name;
+
+        // set state
+        this.setState({
+            [target.name]: value
+        });
+    }
+
     render() {
+        // destructuring
+        const { formDisplay, toggleForm } = this.props;
+
         return (
 
             <div className={
                 'card textcenter mt-3 ' +
-                (this.props.formDisplay ? '' : 'add-appointment')
+                (formDisplay ? '' : 'add-appointment')
             }>
                 <div className="apt-addheading card-header bg-primary text-white">
-                    Add Appointment&nbsp;&nbsp;<FaPlusSquare onClick={this.props.toggleForm} />
+                    Add Appointment&nbsp;&nbsp;<FaPlusSquare onClick={toggleForm} />
                 </div>
 
                 <div className="card-body">
@@ -22,13 +54,15 @@ class AddAppointments extends Component {
                                 readOnly
                             >
                                 Pet Name
-                  </label>
+                            </label>
                             <div className="col-md-10">
                                 <input
                                     type="text"
                                     className="form-control"
                                     name="petName"
                                     placeholder="Pet's Name"
+                                    value={this.state.petName}
+                                    onChange={this.handleChange}
                                 />
                             </div>
                         </div>
@@ -39,13 +73,15 @@ class AddAppointments extends Component {
                                 htmlFor="ownerName"
                             >
                                 Pet Owner
-                  </label>
+                            </label>
                             <div className="col-md-10">
                                 <input
                                     type="text"
                                     className="form-control"
                                     name="ownerName"
                                     placeholder="Owner's Name"
+                                    value={this.state.ownerName}
+                                    onChange={this.handleChange}
                                 />
                             </div>
                         </div>
@@ -56,13 +92,15 @@ class AddAppointments extends Component {
                                 htmlFor="aptDate"
                             >
                                 Date
-                  </label>
+                            </label>
                             <div className="col-md-4">
                                 <input
                                     type="date"
                                     className="form-control"
                                     name="aptDate"
                                     id="aptDate"
+                                    value={this.state.aptDate}
+                                    onChange={this.handleChange}
                                 />
                             </div>
                             <label
@@ -70,13 +108,15 @@ class AddAppointments extends Component {
                                 htmlFor="aptTime"
                             >
                                 Time
-                  </label>
+                            </label>
                             <div className="col-md-4">
                                 <input
                                     type="time"
                                     className="form-control"
                                     name="aptTime"
                                     id="aptTime"
+                                    value={this.state.aptTime}
+                                    onChange={this.handleChange}
                                 />
                             </div>
                         </div>
@@ -84,7 +124,7 @@ class AddAppointments extends Component {
                         <div className="form-group form-row">
                             <label className="col-md-2 text-md-right" htmlFor="aptNotes">
                                 Apt. Notes
-                  </label>
+                            </label>
                             <div className="col-md-10">
                                 <textarea
                                     className="form-control"
@@ -93,6 +133,8 @@ class AddAppointments extends Component {
                                     name="aptNotes"
                                     id="aptNotes"
                                     placeholder="Appointment Notes"
+                                    value={this.state.aptNotes}
+                                    onChange={this.handleChange}
                                 />
                             </div>
                         </div>
@@ -116,3 +158,22 @@ class AddAppointments extends Component {
 }
 
 export default AddAppointments;
+
+
+/** snippets
+ * ptor:  PropTypes.object.isRequired,
+ * pto: PropTypes.object,
+ * pts: PropTypes.string,
+ * ptsr: PropTypes.string.isRequired,
+ * pta: PropTypes.array,
+ * ptar: PropTypes.array.isRequired,
+ *
+ * racf: functional component
+ * rce: class based component that exports at the bottom
+ * rafce -react arrow function export Component
+ *
+ * // binding the this keyword
+ * this.deleteAppointment = this.deleteAppointment.bind(this);
+ * this.toggleForm = this.toggleForm.bind(this);
+ * PropType import: impt
+*/

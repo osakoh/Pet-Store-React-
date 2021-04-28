@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
 import { FaTimes } from "react-icons/fa";
 import Moment from 'react-moment';
+import PropTypes from 'prop-types'
+
 
 class ListAppointments extends Component {
+
+    static propTypes = {
+        appointments: PropTypes.array.isRequired,
+        deleteAppointment: PropTypes.func.isRequired,
+    }
+
     render() {
+        // destructuring
+        const { appointments, deleteAppointment } = this.props;
 
         return (
             <div className="appointment-list item-list mb-3">
-                {this.props.appointments.map(item => (
+                {appointments.map(item => (
                     <div className="pet-item col media py-3" key={item.aptId}>
                         <div className="mr-3">  {/* deleteAppointment: will be created in App.js */}
-                            <button className="pet-delete btn btn-sm btn-danger" onClick={() => this.props.deleteAppointment(item)}>
+                            <button className="pet-delete btn btn-sm btn-danger" onClick={() => deleteAppointment(item)}>
                                 <FaTimes />
                             </button>
                         </div>
@@ -42,15 +52,21 @@ class ListAppointments extends Component {
 
 export default ListAppointments
 
-// import React from 'react'
-
-// const ListAppointments = () => {
-//     return (
-//         <div>
-
-//         </div>
-//     )
-// }
-
-// export default ListAppointments
+/** snippets
+ * ptor:  PropTypes.object.isRequired,
+ * pto: PropTypes.object,
+ * pts: PropTypes.string,
+ * ptsr: PropTypes.string.isRequired,
+ * pta: PropTypes.array,
+ * ptar: PropTypes.array.isRequired,
+ *
+ * racf: functional component
+ * rce: class based component that exports at the bottom
+ * rafce -react arrow function export Component
+ *
+ * // binding the this keyword
+ * this.deleteAppointment = this.deleteAppointment.bind(this);
+ * this.toggleForm = this.toggleForm.bind(this);
+ * PropType import: impt
+*/
 
