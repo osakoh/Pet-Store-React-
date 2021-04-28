@@ -5,6 +5,7 @@ import SearchAppointments from './SearchAppointments';
 import ListAppointments from './ListAppointments';
 import axios from 'axios'; // axios import
 import { without } from 'lodash';
+import Alert from './Alert';
 
 
 class App extends Component {
@@ -72,6 +73,7 @@ class App extends Component {
           <div className="row">
             <div className="col-md-12 bg-white">
               <div className="container">
+                <Alert alert={alert} />
                 <AddAppointments
                   formDisplay={formDisplay}
                   toggleForm={this.toggleForm}
