@@ -19,7 +19,7 @@ class AddAppointments extends Component {
         toggleForm: PropTypes.func.isRequired,
     }
 
-    // event handler     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+    // event handler 
     handleChange = e => {
         const target = e.target;
         const value = target.value;
@@ -65,7 +65,6 @@ class AddAppointments extends Component {
 
             // show success message
             this.props.showAlert("Appointment added.", "success");
-            console.log("cannot submit an empty form!");
 
             // hide the form by calling the toggleForm method
             this.props.toggleForm();

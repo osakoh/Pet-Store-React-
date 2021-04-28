@@ -15,6 +15,8 @@ class App extends Component {
     formDisplay: false,
     lastIndex: 0,
     alert: null,
+    orderBy: 'petName',
+    orderDir: 'asc',
   }
 
   // deleteAppointment function
@@ -56,10 +58,11 @@ class App extends Component {
     apt.aptId = this.state.lastIndex; // last index variable(id number) from state
     //push: adds to the end of that stack( rarely needs reallocate memory+copy over); 
     // unshift: adds to the start of the list(always needs to reallocate memory and copy data over)
-    tempApts.unshift(apt);
+    tempApts.push(apt);
     // set the state
     this.setState({
-
+      myAppointments: tempApts,
+      lastIndex: this.state.lastIndex + 1,
     })
   }
 
@@ -72,11 +75,35 @@ class App extends Component {
     setTimeout(() => this.setState({ alert: null }), 4000);
   }
 
+  // changeOrder function
+  changeOrder = (order, dir) => {
+    this.setState({
+      orderBy: order,
+      orderDir: dir,
+    })
+  }
+
   render() {
+    let order;
+    let filteredApts = this.state.myAppointments;
+    if (this.state.orderDir === 'asc') {
+      order = 1;  // asc order
+    } else {
+      order = -1; // desc order
+    }
+
+    filteredApts.sort((a, b) => {
+      if (a[this.state.orderBy].toLowerCase() < b[this.state.orderBy].toLowerCase()) {
+        return -1 * order;
+      } else {
+        return 1 * order;
+      }
+    })
+
     // destructuring from state
     const { formDisplay, myAppointments, alert } = this.state;
 
-    return (
+    return ( // shows the template
       <main className="page bg-white" id="petratings">
         <div className="container">
           <div className="row">
@@ -84,16 +111,20 @@ class App extends Component {
               <div className="container">
                 <Alert alert={alert} />
                 <AddAppointments
-                  formDisplay={formDisplay}
-                  toggleForm={this.toggleForm}
-                  addAppointment={this.addAppointment}
-                  showAlert={this.showAlert}
+                  formDisplay={formDisplay}  // passing formDisplay state variable down into AddAppointments
+                  toggleForm={this.toggleForm} // receiving props(function) from AddAppointments
+                  addAppointment={this.addAppointment} // receiving props(function) from AddAppointments
+                  showAlert={this.showAlert}  // receiving props(function) from AddAppointments
                 />
-                <SearchAppointments />
+                <SearchAppointments
+                  orderBy={this.state.orderBy}  // passing orderBy variable into SearchAppointments
+                  orderDir={this.state.orderDir}  // passing orderDir variable into SearchAppointments
+                  changeOrder={this.changeOrder}  // receiving props from SearchAppoints
+                />
                 <ListAppointments
-                  appointments={myAppointments}
-                  deleteAppointment={this.deleteAppointment}
-                  showAlert={this.showAlert}
+                  appointments={filteredApts} // passing appointments array into ListAppointments
+                  deleteAppointment={this.deleteAppointment} // receiving props(function) from ListAppointments
+                  showAlert={this.showAlert} // receiving props(function) from ListAppointments
                 />
               </div>
             </div>

@@ -16,6 +16,6 @@ const Alert = ({ alert }) => {
 
 // proTypes
 Alert.propTypes = {
-    alert: PropTypes.func,
+    alert: PropTypes.object,
 }
 export default Alert

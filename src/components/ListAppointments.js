@@ -21,13 +21,13 @@ class ListAppointments extends Component {
                     <div className="pet-item col media py-3" key={item.aptId}>
                         <div className="mr-3">  {/* deleteAppointment: will be created in App.js */}
                             {/* <button className="pet-delete btn btn-sm btn-danger" onClick={() => deleteAppointment(item)}> */}
-                            <button className="pet-delete btn btn-sm btn-danger" onClick={
-                                () => {
+                            <button className="pet-delete btn btn-sm btn-danger"
+                                onClick={() => {
                                     deleteAppointment(item)
                                     this.props.showAlert("Deleted appointment!", "warning");
                                 }
 
-                            }>
+                                }>
                                 <FaTimes />
                             </button>
                         </div>
