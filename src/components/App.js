@@ -11,6 +11,7 @@ class App extends Component {
 
   state = {
     myAppointments: [],
+    formDisplay: false,
     lastIndex: 0,
   }
 
@@ -23,6 +24,11 @@ class App extends Component {
 
     // set the state without the deleted item
     this.setState({ myAppointments: tempApts });
+  }
+
+  // toggleForm function
+  toggleForm = () => {
+    this.setState({ formDisplay: !this.state.formDisplay });
   }
 
   // lifecycle method
@@ -50,7 +56,10 @@ class App extends Component {
           <div className="row">
             <div className="col-md-12 bg-white">
               <div className="container">
-                <AddAppointments />
+                <AddAppointments
+                  formDisplay={this.state.formDisplay}
+                  toggleForm={this.toggleForm}
+                />
                 <SearchAppointments />
                 <ListAppointments appointments={myAppointments} deleteAppointment={this.deleteAppointment} />
               </div>
@@ -80,4 +89,5 @@ export default App;
  *
  * // binding the this keyword
  * this.deleteAppointment = this.deleteAppointment.bind(this);
+ * this.toggleForm = this.toggleForm.bind(this);
 */
