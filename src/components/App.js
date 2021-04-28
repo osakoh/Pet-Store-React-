@@ -4,6 +4,7 @@ import AddAppointments from './AddAppointments';
 import SearchAppointments from './SearchAppointments';
 import ListAppointments from './ListAppointments';
 import axios from 'axios'; // axios import
+import { without } from 'lodash';
 
 
 class App extends Component {
@@ -11,6 +12,17 @@ class App extends Component {
   state = {
     myAppointments: [],
     lastIndex: 0,
+  }
+
+  // deleteAppointment function
+  deleteAppointment = (apt) => {
+    let tempApts = this.state.myAppointments;
+
+    // deletes a record from an array and returns the array without the deleted item
+    tempApts = without(tempApts, apt);
+
+    // set the state without the deleted item
+    this.setState({ myAppointments: tempApts });
   }
 
   // lifecycle method
@@ -40,7 +52,7 @@ class App extends Component {
               <div className="container">
                 <AddAppointments />
                 <SearchAppointments />
-                <ListAppointments appointments={myAppointments} />
+                <ListAppointments appointments={myAppointments} deleteAppointment={this.deleteAppointment} />
               </div>
             </div>
           </div>
@@ -65,4 +77,7 @@ export default App;
  * racf: functional component
  * rce: class based component that exports at the bottom
  * rafce -react arrow function export Component
+ *
+ * // binding the this keyword
+ * this.deleteAppointment = this.deleteAppointment.bind(this);
 */
