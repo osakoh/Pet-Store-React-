@@ -5,6 +5,7 @@ import SearchAppointments from './SearchAppointments';
 import ListAppointments from './ListAppointments';
 import axios from 'axios'; // axios import
 import { without } from 'lodash';
+import { findIndex } from 'lodash';
 import Alert from './Alert';
 
 
@@ -65,6 +66,20 @@ class App extends Component {
       myAppointments: tempApts,
       lastIndex: this.state.lastIndex + 1,
     })
+  }
+
+  // updateApt function
+  updateApt = (name, value, id) => {
+    let tempApts = this.state.myAppointments;
+    // findIndex: locates the index of an element in the original array not sorted array
+    let aptIndex = findIndex(this.state.myAppointments, {
+      aptId: id
+    });
+    tempApts[aptIndex][name] = value;
+    // set the state
+    this.setState({
+      myAppointments: tempApts,
+    });
   }
 
   // showAlert function
@@ -143,6 +158,7 @@ class App extends Component {
                   appointments={filteredApts} // passing appointments array into ListAppointments
                   deleteAppointment={this.deleteAppointment} // receiving props(function) from ListAppointments
                   showAlert={this.showAlert} // receiving props(function) from ListAppointments
+                  updateApt={this.updateApt} // receiving props(function) from ListAppointments
                 />
               </div>
             </div>
