@@ -13,6 +13,7 @@ class App extends Component {
     myAppointments: [],
     formDisplay: false,
     lastIndex: 0,
+    alert: null,
   }
 
   // deleteAppointment function
