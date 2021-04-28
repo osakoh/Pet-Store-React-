@@ -27,8 +27,44 @@ class AddAppointments extends Component {
 
         // set state
         this.setState({
-            [target.name]: value
+            [name]: value
         });
+    }
+
+    // handleAdd handler
+    handleAdd = e => {
+        e.preventDefault();
+
+        // validates inputs and ensures the fields aren't empty
+        if (this.state.petName === '' || this.state.ownerName === '' || this.state.aptDate === ''
+            || this.state.aptTime === '' || this.state.aptNotes === '') {
+
+            console.log("cannot submit an empty form!");
+
+        } else {
+            let tempApt = {
+                petName: this.state.petName,
+                ownerName: this.state.ownerName,
+                aptDate: this.state.aptDate + ' ' + this.state.aptTime,
+                aptNotes: this.state.aptNotes
+            };
+
+            // passing the props upwards to the App component
+            this.props.addAppointment(tempApt);
+
+            // clear the input fields
+            this.setState({
+                petName: '',
+                ownerName: '',
+                aptDate: '',
+                aptTime: '',
+                aptNotes: '',
+            })
+
+            // hide the form by calling the toggleForm method
+            this.props.toggleForm();
+        }
+
     }
 
     render() {
@@ -46,7 +82,7 @@ class AddAppointments extends Component {
                 </div>
 
                 <div className="card-body">
-                    <form id="aptForm" noValidate>
+                    <form id="aptForm" noValidate onSubmit={this.handleAdd}>
                         <div className="form-group form-row">
                             <label
                                 className="col-md-2 col-form-label text-md-right"

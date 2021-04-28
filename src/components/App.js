@@ -41,14 +41,29 @@ class App extends Component {
       return item;
     });
 
-    // reset the states
-    this.setState({ myAppointments: apts });
+    // set the state
+    this.setState({
+      myAppointments: apts
+    });
 
   }
 
+  // addAppointment function
+  addAppointment = apt => {
+    let tempApts = this.state.myAppointments; // array in the state
+    apt.aptId = this.state.lastIndex; // last index variable(id number) from state
+    //push: adds to the end of that stack( rarely needs reallocate memory+copy over); 
+    // unshift: adds to the start of the list(always needs to reallocate memory and copy data over)
+    tempApts.unshift(apt);
+    // set the state
+    this.setState({
+
+    })
+  }
+
   render() {
-    // destructuring myAppointments from state
-    const { myAppointments } = this.state;
+    // destructuring from state
+    const { formDisplay, myAppointments } = this.state;
 
     return (
       <main className="page bg-white" id="petratings">
@@ -57,8 +72,9 @@ class App extends Component {
             <div className="col-md-12 bg-white">
               <div className="container">
                 <AddAppointments
-                  formDisplay={this.state.formDisplay}
+                  formDisplay={formDisplay}
                   toggleForm={this.toggleForm}
+                  addAppointment={this.addAppointment}
                 />
                 <SearchAppointments />
                 <ListAppointments appointments={myAppointments} deleteAppointment={this.deleteAppointment} />
